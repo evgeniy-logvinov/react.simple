@@ -1,9 +1,17 @@
 import React from "react";
-import './App.css';
-import MiniDrawer from './components/MiniDrawer';
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import purple from '@material-ui/core/colors/purple';
+import MiniDrawer from './components/MiniDrawer';
+import rootReducer from './reducers'
+import thunk from 'redux-thunk';
+import './App.css';
+
+const store = createStore(
+  rootReducer,
+  applyMiddleware(thunk)
+);
 
 const theme = createMuiTheme({
   palette: {
@@ -18,9 +26,11 @@ const theme = createMuiTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <MiniDrawer />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <MiniDrawer />
+      </ThemeProvider>
+    </Provider>
   );
 }
 

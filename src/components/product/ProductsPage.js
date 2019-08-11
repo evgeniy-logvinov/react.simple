@@ -1,11 +1,10 @@
-import React from "react";
-import { Route, Link } from "react-router-dom";
+import React from 'react';
 import ProductCard from './ProductCard';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import tileData from '../tileData';
+import tileData from '../../tileData';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -27,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function Products() {
+export default function ProductsPage() {
     const classes = useStyles();
 
     return (

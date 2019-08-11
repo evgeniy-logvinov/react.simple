@@ -18,12 +18,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Icon from '@material-ui/core/Icon';
 import MailIcon from '@material-ui/icons/Mail';
-import { BrowserRouter as Router, Route, Link, Switch, Redirect } from "react-router-dom";
-import Home from './Home';
-import About from './About';
-import Topics from './Topics';
-import Products from './Products';
-import Notfound from './Notfound'
+import { BrowserRouter, Link } from "react-router-dom";
+import Routes from '../routes';
 
 const drawerWidth = 240;
 
@@ -102,7 +98,7 @@ export default function MiniDrawer() {
     }
 
     return (
-        <Router>
+        <BrowserRouter>
             <div className={classes.root}>
                 <CssBaseline />
                 <AppBar
@@ -198,16 +194,9 @@ export default function MiniDrawer() {
                 </Drawer>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    <Switch>
-                        <Route exact path="/home" component={Home} />
-                        <Redirect exact from="/" to="/products"/>
-                        <Route path="/products" component={Products} />
-                        <Route path="/about" component={About} />
-                        <Route path="/topics" component={Topics} />
-                        <Route component={Notfound} />
-                    </Switch>
+                    <Routes />
                 </main>
             </div>
-        </Router>
+        </BrowserRouter>
     );
-}
+};
