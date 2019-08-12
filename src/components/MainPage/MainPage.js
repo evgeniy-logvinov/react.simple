@@ -17,7 +17,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import Icon from '@material-ui/core/Icon';
-import MailIcon from '@material-ui/icons/Mail';
 import { Link } from "react-router-dom";
 import Routes from '../../router/routes';
 import Button from '@material-ui/core/Button';
@@ -201,39 +200,21 @@ function MainPage({ actions, history }) {
                         </ListItemIcon>
                         <ListItemText primary={'Products'} />
                     </ListItem>
+                    <ListItem button key={'Basket'} component={Link} to="/basket">
+                        <ListItemIcon>
+                            <Icon>shopping_cart</Icon>
+                        </ListItemIcon>
+                        <ListItemText primary={'Basket'} />
+                    </ListItem>
                     <ListItem button key={'Home'} component={Link} to="/">
                         <ListItemIcon>
                             <InboxIcon />
                         </ListItemIcon>
                         <ListItemText primary={'Home'} />
                     </ListItem>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text} component={Link} to="/">
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
                 </List>
                 <Divider />
                 <List>
-                    {/* {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem button key={text} component={Link} to="/topics">
-                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                                <ListItemText primary={text} />
-                            </ListItem>
-                        ))} */}
-                    <ListItem button key={'Home'} component={Link} to="/home">
-                        <ListItemIcon>
-                            <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary={'Home'} />
-                    </ListItem>
-                    <ListItem button key={'Topics'} component={Link} to="/topics">
-                        <ListItemIcon>
-                            <Icon>shopping_cart</Icon>
-                        </ListItemIcon>
-                        <ListItemText primary={'Topics'} />
-                    </ListItem>
                     <ListItem button key={'About'} component={Link} to="/about">
                         <ListItemIcon>
                             <Icon>info</Icon>
@@ -256,10 +237,6 @@ const mapDispatchToProps = (dispatch) => {
     };
 }
 
-const mapStateToProps = (state) => {
-    return {
-        security: { ...state.security },
-    }
-}
+const mapStateToProps = (state) => ({ ...state });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(MainPage));

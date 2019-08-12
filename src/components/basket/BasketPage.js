@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ProductCard from './ProductCard';
+import BasketCard from './BasketCard';
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -28,11 +28,9 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function ProductsPage({ actions, shop }) {
+function BasketPage({ actions, shop }) {
     const classes = useStyles();
-    console.log('shop', shop)
-    // const [products, setProducts] = useState([]);
-    const products = shop.products || [];
+    const products = shop.basket.products || [];
 
     useEffect(() => {
         async function getProducts() {
@@ -50,11 +48,11 @@ function ProductsPage({ actions, shop }) {
         <div className={classes.root}>
             <GridList className={classes.gridList}>
                 <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-                    <ListSubheader component="div">Products</ListSubheader>
+                    <ListSubheader component="div">Products in basket</ListSubheader>
                 </GridListTile>
                 {products.map(tile => (
                     <GridListTile key={tile.id} className={classes.gridItem} style={{ height: 'auto' }}>
-                        <ProductCard item={tile} />
+                        <BasketCard item={tile} />
                     </GridListTile>
                 ))}
             </GridList>
@@ -76,5 +74,5 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(BasketPage);
 

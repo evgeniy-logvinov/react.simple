@@ -7,8 +7,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import ProductPage from './ProductPage';
-import { Link, Route } from "react-router-dom";
+// import ProductPage from './ProductPage';
+import { Link } from "react-router-dom";
 import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     },
 });
 
-const ProductCard = ({ item, match, actions }) => {
+const BasketCard = ({ item, match, actions }) => {
     const classes = useStyles();
 
     const handleAddProduct = () => {
@@ -33,7 +33,7 @@ const ProductCard = ({ item, match, actions }) => {
             throw new Error('Oops! Please contact site administrator');
         }
 
-        actions.addProductToBasket(item);
+        actions.addProductToBasket(item.id);
     }
 
     return (
@@ -68,7 +68,7 @@ const ProductCard = ({ item, match, actions }) => {
                     Learn More
                 </Button> */}
             </CardActions>
-            <Route path={`${match.url}/:productId`} component={ProductPage} />
+            {/* <Route path={`${match.url}/:productId`} component={ProductPage} /> */}
         </Card>
     );
 }
@@ -86,4 +86,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProductCard));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BasketCard));

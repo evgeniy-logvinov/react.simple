@@ -3,7 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 import MainPage from './components/MainPage/MainPage';
 import rootReducer from './reducers'
 import thunk from 'redux-thunk';
@@ -30,9 +30,9 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <BrowserRouter history={history}>
+        <Router history={history}>
           <MainPage />
-        </BrowserRouter>
+        </Router>
       </ThemeProvider>
     </Provider>
   );

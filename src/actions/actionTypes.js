@@ -1,3 +1,4 @@
 export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
 export const LOG_OUT = 'LOG_OUT';
 export const GET_PRODUCTS_SUCCESS = 'GET_PRODUCTS_SUCCESS';
+export const ADD_PRODUCT_SUCCESS = 'ADD_PRODUCT_SUCCESS';
