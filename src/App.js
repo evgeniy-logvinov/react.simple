@@ -3,10 +3,12 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import MiniDrawer from './components/MiniDrawer';
+import { BrowserRouter } from "react-router-dom";
+import MainPage from './components/MainPage/MainPage';
 import rootReducer from './reducers'
 import thunk from 'redux-thunk';
 import './App.css';
+import history from "./router/history";
 
 const store = createStore(
   rootReducer,
@@ -28,7 +30,9 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        <MiniDrawer />
+        <BrowserRouter history={history}>
+          <MainPage />
+        </BrowserRouter>
       </ThemeProvider>
     </Provider>
   );

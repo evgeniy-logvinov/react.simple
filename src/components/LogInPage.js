@@ -67,14 +67,6 @@ function LogInPage({ actions, history }) {
         }
     }
 
-    async function handleSignOut() {
-        try {
-            await actions.logOutUser();
-        } catch (err) {
-            alert(err.message);
-        }
-    }
-
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -125,15 +117,6 @@ function LogInPage({ actions, history }) {
                     >
                         Sign In
                     </Button>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        onClick={handleSignOut}
-                    >
-                        Sign Out
-                    </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
@@ -158,7 +141,6 @@ function LogInPage({ actions, history }) {
 const mapStateToProps = (state) => {
     return {
         security: { ...state.security },
-        basket: { ...state.basket },
     }
 }
 

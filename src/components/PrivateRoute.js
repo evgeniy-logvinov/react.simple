@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router';
+import { isLoggedIn } from '../utility'
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={(props) => (
@@ -11,7 +12,3 @@ export const PrivateRoute = ({ component: Component, ...rest }) => (
             }} />
     )} />
 )
-
-function isLoggedIn() {
-    return !!sessionStorage.token;
-}

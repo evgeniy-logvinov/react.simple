@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import security from './sessionReducer'
-import basket from './basket'
+import shop from './shopReducer'
 
 export default combineReducers({
     security,
-    basket
+    shop
 })

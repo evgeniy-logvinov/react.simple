@@ -22,8 +22,7 @@ const useStyles = makeStyles({
     },
 });
 
-const ProductCard = (props) => {
-    console.log('props', props)
+const ProductCard = ({ item, match }) => {
     const classes = useStyles();
 
     return (
@@ -31,15 +30,15 @@ const ProductCard = (props) => {
             <CardActionArea>
                 <CardMedia
                     className={classes.media}
-                    image={props.item.img}
-                    title={props.item.title}
+                    image={item.logoImage}
+                    title={item.name}
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {props.item.author}
+                        {item.name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {props.item.description}
+                        {item.description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -47,15 +46,18 @@ const ProductCard = (props) => {
                 <Button size="small" variant="contained" color="secondary">
                     Buy
                 </Button>
-                <Button size="small" color="primary" component={Link} to={`${props.match.url}/${props.item.id}`}>
-                    Share
+                <Button size="small" color="primary" component={Link} to={`${match.url}/${item.id}`}>
+                    Learn More
                 </Button>
+                {/* <Button size="small" color="primary" component={Link} to={`${match.url}/${item.id}`}>
+                    Share
+                </Button> */}
 
                 {/* <Button size="small" color="primary">
                     Learn More
                 </Button> */}
             </CardActions>
-            <Route path={`${props.match.url}/:productId`} component={ProductPage} />
+            <Route path={`${match.url}/:productId`} component={ProductPage} />
         </Card>
     );
 }
