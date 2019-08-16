@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 
@@ -60,7 +60,8 @@ function LogInPage({ actions, history }) {
 
     async function handleSignIn() {
         try {
-            await actions.logInUser({ email, password});
+            await actions.logInUser({ email, password });
+            await actions.getUserInfo();
             history.push('/');
         } catch (err) {
             alert(err.message);
@@ -141,6 +142,7 @@ function LogInPage({ actions, history }) {
 const mapStateToProps = (state) => {
     return {
         security: { ...state.security },
+        userInfo: { ...state.userInfo },
     }
 }
 

@@ -5,7 +5,6 @@ import Topic from './Topic';
 export default class Topics extends Component {
     render() {
         const { url, path } = this.props.match
-        console.log(this.props.match)
         return (
             <div>
                 <h2>Topics</h2>

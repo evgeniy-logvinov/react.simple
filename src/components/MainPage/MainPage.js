@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -26,6 +26,7 @@ import * as actions from '../../actions';
 import Grid from '@material-ui/core/Grid';
 import { isLoggedIn } from '../../utility'
 import { withRouter } from 'react-router';
+import Badge from '@material-ui/core/Badge';
 
 const drawerWidth = 240;
 
@@ -66,6 +67,9 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
+    userInfo: {
+        margin: theme.spacing(1),
+    },
     drawerClose: {
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -88,17 +92,37 @@ const useStyles = makeStyles(theme => ({
         flexGrow: 1,
         padding: theme.spacing(3),
     },
+    margin: {
+        margin: theme.spacing(1),
+    },
 }));
 
-function MainPage({ actions, history }) {
+function MainPage({ actions, history, shop, userInfo }) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
+    const numberOfProductsInBasket = shop.basket.products.length;
+
+    useEffect(() => {
+        async function getProducts() {
+            try {
+                if (isLoggedIn() && (!userInfo.user.first || !userInfo.user.last)) {
+                    await actions.getUserInfo();
+                }
+            } catch (err) {
+                alert(err.message);
+            }
+        }
+
+        getProducts();
+
+    }, [actions, userInfo])
 
     async function handleSignOut() {
         try {
             await actions.logOutUser();
-            history.push('/topics');
+            await actions.removeUserInfo();
+            history.push('/');
         } catch (err) {
             alert(err.message);
         }
@@ -141,12 +165,22 @@ function MainPage({ actions, history }) {
                                 <Grid item xs={10}>
                                     <Typography variant="h6" noWrap>
                                         Shop Manager
-                                        </Typography>
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
                         <Grid item xs={8}>
                             <Grid container alignItems="center" justify="flex-end">
+                                <Grid item className={classes.userInfo}>
+                                    {isLoggedIn()
+                                        ?
+                                        <Typography variant="subtitle1" noWrap>
+                                            {`${userInfo.user.first} ${userInfo.user.last}`}
+                                        </Typography>
+                                        :
+                                        ''
+                                    }
+                                </Grid>
                                 <Grid item>
                                     {isLoggedIn()
                                         ?
@@ -165,7 +199,7 @@ function MainPage({ actions, history }) {
                                             component={Link}
                                             to='/login'>
                                             Log in
-                                            </Button>
+                                        </Button>
                                     }
                                 </Grid>
                             </Grid>
@@ -196,28 +230,40 @@ function MainPage({ actions, history }) {
                 <List>
                     <ListItem button key={'Products'} component={Link} to="/products">
                         <ListItemIcon>
-                            <Icon>home</Icon>
+                            <Icon className={classes.margin}>home</Icon>
                         </ListItemIcon>
                         <ListItemText primary={'Products'} />
                     </ListItem>
-                    <ListItem button key={'Basket'} component={Link} to="/basket">
+                    <ListItem button key={'Basket'} component={Link} to="/ticket">
                         <ListItemIcon>
-                            <Icon>shopping_cart</Icon>
+                            <Badge color="secondary" badgeContent={numberOfProductsInBasket} invisible={!numberOfProductsInBasket} className={classes.margin}>
+                                <Icon>shopping_cart</Icon>
+                            </Badge>
                         </ListItemIcon>
                         <ListItemText primary={'Basket'} />
                     </ListItem>
-                    <ListItem button key={'Home'} component={Link} to="/">
+                    <ListItem button key={'Home'} component={Link} to="/home">
                         <ListItemIcon>
-                            <InboxIcon />
+                            <InboxIcon className={classes.margin} />
                         </ListItemIcon>
                         <ListItemText primary={'Home'} />
                     </ListItem>
                 </List>
                 <Divider />
                 <List>
+                    {
+                        isLoggedIn() ?
+                            <ListItem button key={'Profile'} component={Link} to="/profile">
+                                <ListItemIcon>
+                                    <Icon className={classes.margin}>face</Icon>
+                                </ListItemIcon>
+                                <ListItemText primary={'Profile'} />
+                            </ListItem>
+                            : ''
+                    }
                     <ListItem button key={'About'} component={Link} to="/about">
                         <ListItemIcon>
-                            <Icon>info</Icon>
+                            <Icon className={classes.margin}>info</Icon>
                         </ListItemIcon>
                         <ListItemText primary={'About'} />
                     </ListItem>

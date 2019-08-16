@@ -3,7 +3,19 @@ export default {
     shop: {
         products: [],
         basket: {
-            products: []
+            ticketId: '',
+            products: [],
         },
+        tickets: [],
+    },
+    userInfo: {
+        user: {
+            first: '',
+            last: '',
+        },
+        logoImage: '',
+        id: '',
+        email: '',
+        phone: '',
     }
 };

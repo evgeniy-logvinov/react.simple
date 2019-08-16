@@ -13,27 +13,44 @@ import { withRouter } from 'react-router';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actions from '../../actions';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles({
     card: {
+        height: 400,
         maxWidth: 345,
         borderColor: 'red',
         borderSize: '1px',
     },
+    cardContent: {
+        height: 200,
+    },
+    cardDescription: {
+        overflow: 'hidden',
+    },
+    cardName: {
+        overflow: 'hidden',
+    },
     media: {
         height: 140,
     },
+    price: {
+        marginLeft: 70,
+    }
 });
 
-const ProductCard = ({ item, match, actions }) => {
+const ProductCard = ({ item, match, actions, shop }) => {
     const classes = useStyles();
+    const product = shop.basket.products.find(el => el.id === item.id)
+    const count = product ? product.count : 0;
 
     const handleAddProduct = () => {
-        if (!item.id) {
-            throw new Error('Oops! Please contact site administrator');
-        }
-
         actions.addProductToBasket(item);
+    }
+
+    const handleRemoveProduct = () => {
+        actions.removeProductFromBasket(product);
     }
 
     return (
@@ -44,29 +61,31 @@ const ProductCard = ({ item, match, actions }) => {
                     image={item.logoImage}
                     title={item.name}
                 />
-                <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                <CardContent className={classes.cardContent}>
+                    <Typography gutterBottom variant="subtitle2" className={classes.cardName}>
                         {item.name}
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    <Typography variant="caption" color="textSecondary" className={classes.cardDescription}>
                         {item.description}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" variant="contained" color="secondary" onClick={handleAddProduct}>
-                    Buy
-                </Button>
-                <Button size="small" color="primary" component={Link} to={`${match.url}/${item.id}`}>
-                    Learn More
-                </Button>
                 {/* <Button size="small" color="primary" component={Link} to={`${match.url}/${item.id}`}>
-                    Share
-                </Button> */}
-
-                {/* <Button size="small" color="primary">
                     Learn More
                 </Button> */}
+                <Button size="small" variant="contained" color="secondary" onClick={handleAddProduct}>
+                    <Icon fontSize="small" className={classes.icon}>add_shopping_cart</Icon>
+                </Button>
+                <Typography gutterBottom variant="subtitle1">
+                    {count}
+                </Typography>
+                <Button disabled={count === 0} size="small" variant="contained" color="secondary" onClick={handleRemoveProduct}>
+                    <DeleteIcon fontSize="small" />
+                </Button>
+                <Typography gutterBottom variant="subtitle1" className={classes.price}>
+                    $ {item.price}
+                </Typography>
             </CardActions>
             <Route path={`${match.url}/:productId`} component={ProductPage} />
         </Card>

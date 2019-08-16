@@ -30,8 +30,6 @@ const useStyles = makeStyles(theme => ({
 
 function ProductsPage({ actions, shop }) {
     const classes = useStyles();
-    console.log('shop', shop)
-    // const [products, setProducts] = useState([]);
     const products = shop.products || [];
 
     useEffect(() => {

@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import sessionApi from '../api/sessionApi';
 
 export const loginSuccess = () => ({ type: types.LOG_IN_SUCCESS });
+export const logoutSuccess = () => ({ type: types.LOG_OUT_SUCCESS });
 
 export const logInUser = (credentials) => async (dispatch) => {
     try {
@@ -13,7 +14,12 @@ export const logInUser = (credentials) => async (dispatch) => {
     }
 }
 
-export const logOutUser = () => {
-    sessionStorage.removeItem('token');
-    return { type: types.LOG_OUT }
+export const logOutUser = () => async (dispatch) => {
+    try {
+        await sessionApi.logout();
+        sessionStorage.removeItem('token');
+        return dispatch(logoutSuccess());
+    } catch (err) {
+        throw err;
+    }
 }
