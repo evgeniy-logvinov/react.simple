@@ -106,7 +106,7 @@ function MainPage({ actions, history, shop, userInfo }) {
     useEffect(() => {
         async function getProducts() {
             try {
-                if (isLoggedIn() && (!userInfo.user.first || !userInfo.user.last)) {
+                if (isLoggedIn() && (!userInfo.name.first || !userInfo.name.last)) {
                     await actions.getUserInfo();
                 }
             } catch (err) {
@@ -175,7 +175,7 @@ function MainPage({ actions, history, shop, userInfo }) {
                                     {isLoggedIn()
                                         ?
                                         <Typography variant="subtitle1" noWrap>
-                                            {`${userInfo.user.first} ${userInfo.user.last}`}
+                                            {`${userInfo.name.first} ${userInfo.name.last}`}
                                         </Typography>
                                         :
                                         ''
@@ -197,7 +197,7 @@ function MainPage({ actions, history, shop, userInfo }) {
                                             color="secondary"
                                             className={classes.button}
                                             component={Link}
-                                            to='/login'>
+                                            to='/signin'>
                                             Log in
                                         </Button>
                                     }

@@ -4,7 +4,8 @@ import HomePage from '../components/home/HomePage';
 import ProductsPage from '../components/product/ProductsPage';
 import ProductPage from '../components/product/ProductPage';
 import AboutPage from '../components/about/AboutPage';
-import LogInPage from '../components/LogInPage';
+import SignInPage from '../components/SignInPage';
+import SignUpPage from '../components/SignUpPage';
 import ProfilePage from '../components/profile/ProfilePage';
 import TicketPage from '../components/ticket/TicketPage';
 import Notfound from '../components/Notfound';
@@ -15,11 +16,12 @@ const routes = () => (
         <Switch>
             <Route exact path="/home" component={HomePage} />
             <Redirect exact from="/" to="/products" />
-            <Route path="/login" component={LogInPage} />
+            <Route path="/signin" component={SignInPage} />
             <PrivateRoute exact path="/products" component={ProductsPage}/>
             <PrivateRoute exact path="/products/:productId" component={ProductPage}/>
             <PrivateRoute exact path="/profile" component={ProfilePage}/>
             <Route path="/about" component={AboutPage} />
+            <Route path="/signup" component={SignUpPage} />
             <Route path="/ticket" component={TicketPage} />
             <Route component={Notfound} />
         </Switch>

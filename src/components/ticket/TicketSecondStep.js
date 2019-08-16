@@ -60,14 +60,14 @@ function TicketSecondStep({ actions, userInfo }) {
                         <TextField
                             label="First Name"
                             className={classes.textField}
-                            value={userInfo.user.first}
+                            value={userInfo.name.first}
                             margin="normal"
                             disabled
                         />
                         <TextField
                             label="Last Name"
                             className={classes.textField}
-                            value={userInfo.user.last}
+                            value={userInfo.name.last}
                             margin="normal"
                             disabled
                         />

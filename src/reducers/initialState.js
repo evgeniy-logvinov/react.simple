@@ -9,7 +9,7 @@ export default {
         tickets: [],
     },
     userInfo: {
-        user: {
+        name: {
             first: '',
             last: '',
         },

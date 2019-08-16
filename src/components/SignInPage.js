@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function LogInPage({ actions, history }) {
+function SignInPage({ actions, history }) {
     const classes = useStyles();
     const [email, setEmail] = useState(''); // '' is the initial state value
     const [password, setPassword] = useState(''); // '' is the initial state value
@@ -105,10 +105,10 @@ function LogInPage({ actions, history }) {
                         value={password}
                         onInput={e => setPassword(e.target.value)}
                     />
-                    <FormControlLabel
+                    {/* <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
-                    />
+                    /> */}
                     <Button
                         fullWidth
                         variant="contained"
@@ -119,13 +119,13 @@ function LogInPage({ actions, history }) {
                         Sign In
                     </Button>
                     <Grid container>
-                        <Grid item xs>
+                        {/* <Grid item xs>
                             <Link href="#" variant="body2">
                                 Forgot password?
                             </Link>
-                        </Grid>
+                        </Grid> */}
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/signup" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
@@ -152,4 +152,4 @@ const mapDispatchToProps = (dispatch) => {
     };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LogInPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignInPage);

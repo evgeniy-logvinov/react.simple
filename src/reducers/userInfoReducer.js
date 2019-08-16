@@ -7,6 +7,10 @@ export default (state = initialState.userInfo, action) => {
             return action.userInfo;
         case types.REMOVE_USER_INFO_SUCCESS:
             return initialState.userInfo;
+        case types.CREATE_NEW_USER_INFO_SUCCESS:
+            return initialState.userInfo;
+        case types.UPDATE_USER_INFO_SUCCESS:
+            return initialState.userInfo;
         default:
             return state;
     }
